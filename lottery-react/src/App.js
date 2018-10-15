@@ -37,7 +37,7 @@ class App extends Component {
                 <label>Amount of ether to enter</label>
                 <input
                   value={this.state.value}
-                  onChange={event => this.setState({ value= event.target.value })}
+                  onChange={event => this.setState({ value: event.target.value })}
                 />
             </div>
             <button>Enter</button>
