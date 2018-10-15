@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
+import web3 from './web3.js';
 import './App.css';
 
 class App extends Component {
@@ -26,3 +27,4 @@ class App extends Component {
 }
 
 export default App;
+ 
