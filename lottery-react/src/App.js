@@ -12,7 +12,7 @@ class App extends Component {
     this.state = { manager: ''};
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     const manager = await lottery.methods.manager().call();
 
     this.setState({ manager });
