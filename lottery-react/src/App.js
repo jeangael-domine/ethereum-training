@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import web3 from './web3.js';
-import lottery from './lottery.js';
+import lottery from './lottery';
 
 class App extends Component {
 
