@@ -47,5 +47,79 @@ describe('Campaigns', async () => {
             value: '200',
             from: accounts[1]
         })
+
+        const isApprover = await campaign.methods.approvers(accounts[1]).call();
+
+        // Fails if a falsy value is passed to assert
+        assert(isApprover);
+    })
+
+    it('requires a minimum contribution', async () => {
+        try{
+            var unexpectedError = `Expected an error and didn't get one!`;
+
+            await campaign.methods.contribute().send({
+                value: '50',
+                from: accounts[1]
+            })
+            throw new Error(unexpectedError);
+        } catch(err) {
+            assert.notEqual(err.message, unexpectedError)
+        }
+    });
+
+    it('allows the manager to create a payment request', async () => {
+        await campaign.methods.createRequest(
+            'Buy batteries',
+            '100',
+            accounts[1]
+        ).send({
+            from: accounts[0],
+            gas: '1000000'
+        });
+
+        const request = await campaign.methods.requests(0).call();
+
+        assert.equal(request.description, 'Buy batteries');
+    });
+
+    it('processes requests', async () => {
+        await campaign.methods.contribute().send({
+            from: accounts[0],
+            value: web3.utils.toWei('10', 'ether')
+        });
+
+        await campaign.methods.createRequest(
+            'A',
+            web3.utils.toWei('5', 'ether'),
+            accounts[1]
+        ).send({
+            from: accounts[0],
+            gas: '1000000'
+        });
+
+        await campaign.methods.approveRequest(0).send({
+            from: accounts[0],
+            gas: '1000000'
+        });
+
+        let beforeBalance = await web3.eth.getBalance(accounts[1]);
+        beforeBalance = web3.utils.fromWei(beforeBalance, 'ether');
+        // parseFloat is included by default
+        beforeBalance = parseFloat(beforeBalance);
+
+        await campaign.methods.finalize(0).send({
+            from: accounts[0],
+            gas: '1000000'
+        });
+
+        // Balance in wei as a String
+        let afterBalance = await web3.eth.getBalance(accounts[1]);
+        afterBalance = web3.utils.fromWei(afterBalance, 'ether');
+        // parseFloat is included by default
+        afterBalance = parseFloat(afterBalance);
+
+        //console.log(`${afterBalance} > ${beforeBalance}`);
+        assert(afterBalance > beforeBalance);
     })
 });
