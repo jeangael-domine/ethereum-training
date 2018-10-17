@@ -1,22 +1,23 @@
 import React from 'react';
 import { Menu, MenuItem } from 'semantic-ui-react';
+import { Link } from '../routes';
 
 export default () => {
     return (
         // First bracket is for indicating that we are going to write some JS expression
         // The second one is the actual object literal that we are creating
         <Menu style={{ marginTop: '10px' }}>
-            <MenuItem>
-                CrowdCoin
-            </MenuItem>
+            <Link route="/">
+                <a className="item">CrowdCoin</a>
+            </Link>
 
             <Menu.Menu position="right">
-                <MenuItem>
-                    Campaigns
-                </MenuItem>
-                <MenuItem>
-                    +
-                </MenuItem>
+                <Link route="/">
+                    <a className="item">Campaigns</a>
+                </Link>
+                <Link route="/campaigns/new">
+                    <a className="item">+</a>
+                </Link>
             </Menu.Menu>
         </Menu>
     );
