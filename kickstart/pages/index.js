@@ -19,7 +19,7 @@ class CampaignIndex extends Component {
                 header: address,
                 description: (
                     <Link route={`/campaigns/${address}`}>
-                        <a>View Campaign</a>,
+                        <a>View Campaign</a>
                         {/* // Take the entire width of the container */}
                     </Link>
                 ),
