@@ -58,12 +58,12 @@ class CampaignNew extends Component {
                         <Message 
                             error
                             header='Oops!'
-                            content={this.state.errorMessage}
+                            content={ this.state.errorMessage }
                         />
 
                     </Form.Field>
 
-                    <Button type='Submit' primary loading={this.state.loading}>Create!</Button>
+                    <Button type='Submit' primary loading={ this.state.loading }>Create!</Button>
                 </Form>
             </Layout>
         );
