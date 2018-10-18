@@ -15,13 +15,18 @@ class RequestRow extends Component {
     };
     
     onFinalize = async () => {
-
+        const accounts = await web3.eth.getAccounts();
+        
+        const campaign = Campaign(this.props.campaignAddress);
+        await campaign.methods.finalize(this.props.id).send({
+            from: accounts[0]
+        });
     };
 
     render() {
         const { Row, Cell } = Table;
         const { id, request, approversCount } = this.props;
-
+        
         return (
             <Row>
                 <Cell>{ id }</Cell>
