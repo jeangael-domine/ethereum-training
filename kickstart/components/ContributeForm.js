@@ -12,7 +12,7 @@ class ContributeForm extends Component {
         errorMessage: ''
     }
 
-    onSubmit= async (event) => {
+    onSubmit = async (event) => {
         // Prevent the submission by the browser
         event.preventDefault();
 
